@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animeworld/presentation/screens/info_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +21,7 @@ class herocard extends StatelessWidget {
   final Anime anime;
 
   // Function to open YouTube URL
-  Future<void> _launchYouTubeURL({required String videoId}) async {
+  Future<void> _launchYouTubeURL({required String? videoId}) async {
     final youtubeUrl = 'https://www.youtube.com/watch?v=$videoId';
     if (await canLaunchUrl(Uri.parse(youtubeUrl))) {
       await launchUrl(Uri.parse(youtubeUrl));
@@ -44,7 +46,7 @@ class herocard extends StatelessWidget {
                 size: 16,
               ),
               Text(
-                '${anime.score} |  ${anime.favorites! / 1000}k votes',
+                '${anime.score ?? 0} |  ${anime.favorites!}votes',
                 overflow: TextOverflow.clip,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       decoration: TextDecoration.underline,
@@ -55,9 +57,11 @@ class herocard extends StatelessWidget {
               ),
               const Spacer(),
               // watch youtube
-              GestureDetector(
-                onTap: () =>
-                    _launchYouTubeURL(videoId: anime.trailer!.youtubeId!),
+              InkWell(
+                onTap: () {
+                  log(anime.trailer!.youtubeId!);
+                  _launchYouTubeURL(videoId: anime.trailer!.youtubeId);
+                },
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -105,6 +109,45 @@ class herocard extends StatelessWidget {
                   offset: const Offset(0, 5),
                 )
               ],
+            ),
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              height: 200,
+              alignment: Alignment.bottomLeft,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(18),
+                  bottomRight: Radius.circular(18),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    Colors.black.withOpacity(0.9),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 10,
+                bottom: 10,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    anime.titleEnglish ?? anime.title ?? "",
+                    style:
+                        Theme.of(context).textTheme.headlineMedium!.copyWith(),
+                  ),
+                  Text(
+                    anime.duration ?? "",
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

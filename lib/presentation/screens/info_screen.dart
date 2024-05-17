@@ -38,15 +38,18 @@ class InfoScreen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       extendBody: true,
       appBar: AppBar(
-        leading: Container(
-          margin: const EdgeInsets.only(left: 16, top: 16),
-          decoration: BoxDecoration(
-            color: white.withOpacity(0.6),
-            borderRadius: BorderRadius.circular(9),
-          ),
-          child: const Icon(
-            CupertinoIcons.chevron_back,
-            color: white,
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+            margin: const EdgeInsets.only(left: 16, top: 16),
+            decoration: BoxDecoration(
+              color: white.withOpacity(0.6),
+              borderRadius: BorderRadius.circular(9),
+            ),
+            child: const Icon(
+              CupertinoIcons.chevron_back,
+              color: white,
+            ),
           ),
         ),
       ),

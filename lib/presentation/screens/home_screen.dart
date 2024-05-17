@@ -63,13 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
-          // IconButton(
-          //   icon: const Icon(
-          //     CupertinoIcons.bell,
-          //     color: white,
-          //   ),
-          //   onPressed: () {},
-          // ),
         ],
       ),
       body: BlocBuilder<ApirequestBloc, ApirequestState>(
@@ -155,54 +148,82 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       extendBody: true,
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: const BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(80),
-            topRight: Radius.circular(80),
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => BlocProvider.value(
+                value: BlocProvider.of<SearchBloc>(context),
+                child: const SearchScreen(),
+              ),
+            ),
+          );
+        },
+        child: Container(
+          height: 50,
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: const BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(80),
+              topRight: Radius.circular(80),
+            ),
           ),
-        ),
-        child: Theme(
-          data: ThemeData(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-          ),
-          child: BottomNavigationBar(
-            selectedFontSize: 0,
-            unselectedFontSize: 0,
-            backgroundColor: Colors.transparent,
-            selectedItemColor: white,
-            unselectedItemColor: grey,
-            useLegacyColorScheme: false,
-            items: const [
-              BottomNavigationBarItem(
-                label: '',
-                icon: Icon(
-                  CupertinoIcons.film,
-                  color: white,
-                ),
-              ),
-              BottomNavigationBarItem(
-                label: '',
-                icon: Icon(
-                  CupertinoIcons.search,
-                  color: white,
-                ),
-              ),
-              BottomNavigationBarItem(
-                label: '',
-                icon: Icon(
-                  CupertinoIcons.ticket,
-                  color: white,
-                ),
-              ),
-            ],
-            onTap: (value) {},
+          alignment: Alignment.center,
+          child: const Icon(
+            CupertinoIcons.search,
+            color: white,
           ),
         ),
       ),
+      // bottomNavigationBar: Container(
+      //   margin: const EdgeInsets.symmetric(horizontal: 20),
+      //   decoration: const BoxDecoration(
+      //     color: Colors.black,
+      //     borderRadius: BorderRadius.only(
+      //       topLeft: Radius.circular(80),
+      //       topRight: Radius.circular(80),
+      //     ),
+      //   ),
+      //   child: Theme(
+      //     data: ThemeData(
+      //       splashColor: Colors.transparent,
+      //       highlightColor: Colors.transparent,
+      //     ),
+      //     child: BottomNavigationBar(
+      //       selectedFontSize: 0,
+      //       unselectedFontSize: 0,
+      //       backgroundColor: Colors.transparent,
+      //       selectedItemColor: white,
+      //       unselectedItemColor: grey,
+      //       useLegacyColorScheme: false,
+      //       items: const [
+      //         BottomNavigationBarItem(
+      //           label: '',
+      //           icon: Icon(
+      //             CupertinoIcons.film,
+      //             color: white,
+      //           ),
+      //         ),
+      //         BottomNavigationBarItem(
+      //           label: '',
+      //           icon: Icon(
+      //             CupertinoIcons.search,
+      //             color: white,
+      //           ),
+      //         ),
+      //         BottomNavigationBarItem(
+      //           label: '',
+      //           icon: Icon(
+      //             CupertinoIcons.ticket,
+      //             color: white,
+      //           ),
+      //         ),
+      //       ],
+      //       onTap: (value) {},
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
