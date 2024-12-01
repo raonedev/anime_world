@@ -12,14 +12,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc({required this.service}) : super(SearchInitial()) {
     on<SearchAction>((event, emit) async {
       emit(SearchLoadingState());
-      await service
-          .getAnime(limit: 12, page: 1, q: event.query)
-          .then((value) => emit(SearchSucessState(
-                response: value.data,
-              )))
-          .catchError((error) => emit(SearchFailedState(
-                message: error.toString(),
-              )));
+      try{
+        final value = await service.getAnime(limit: 12, page: 1, q: event.query);
+        emit(SearchSucessState(response: value.data,));
+      }catch (error){
+          emit(SearchFailedState(message: error.toString(),));
+      }
     });
   }
 }

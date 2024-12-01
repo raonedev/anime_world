@@ -63,7 +63,9 @@ class Anime extends Equatable {
       source: map['source'] != null ? map['source'] as String : null,
       status: map['status'] != null ? map['status'] as String : null,
       duration: map['duration'] != null ? map['duration'] as String : null,
-      score: map['score'] != null ? map['score'] as double : null,
+      score: map['score'] != null
+        ? (map['score'] is int ? (map['score'] as int).toDouble() : map['score'] as double)
+        : null,
       favorites: map['favorites'] != null ? map['favorites'] as int : null,
       synopsis: map['synopsis'] != null ? map['synopsis'] as String : null,
       backgorund:

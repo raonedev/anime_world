@@ -52,6 +52,7 @@ class _AnimeAPiServices implements AnimeAPiServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
+    // log(_result.toString());
     final value = AnimeResponse.fromMap(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
